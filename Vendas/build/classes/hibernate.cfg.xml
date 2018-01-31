@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+       
+
+<hibernate-configuration>
+
+
+	<session-factory>
+		<!-- Configurações do Banco do dados -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/vendas</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+
+		<!-- Configuração da conexão do JDBC mysql -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<!-- Gerenciamento da sessão do Mysql -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disabilita o cache -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Exibe os comando mysql -->
+		<property name="show_sql">true</property>
+
+		<!-- Criação das Tabelas -->
+		<property name="hbm2ddl.auto">validate</property>
+
+		<mapping class="br.com.Vendas.domain.Fornecedor" />
+		<mapping class="br.com.Vendas.domain.Funcionario" />
+		<mapping class="br.com.Vendas.domain.Produto" />
+		<mapping class="br.com.Vendas.domain.Venda" />
+		<mapping class="br.com.Vendas.domain.Tombamento" />
+	</session-factory>
+
+</hibernate-configuration>

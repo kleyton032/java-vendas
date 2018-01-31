@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:event listener="#{MBTombamentos.listar}" type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputLabel value="Tombamentos" />
+				</f:facet>
+			</p:toolbar>
+			<h:panelGrid columns="4">
+				<p:outputLabel value="Descrição:" />
+				<p:inputText maxlength="50" size="30" />
+				<p:button value="Buscar" />
+				<p:button value="Novo" outcome="/pages/tombamentoCadastro.xhtml">
+					<f:param name="tomacao" value="Novo" />
+				</p:button>
+			</h:panelGrid>
+			<p:dataTable emptyMessage="Nenhum Registro Cadastrado"
+				value="#{MBTombamentos.itens}"
+				filteredValue="#{MBTombamentos.itensFiltrados}" var="tombamento"
+				rows="10" paginator="true">
+				<p:column headerText="Código">
+					<h:outputText value="#{tombamento.codigo}" />
+				</p:column>
+				<p:column headerText="Descrição" filterBy="#{tombamento.descricao}"
+					sortBy="#{tombamento.descricao}">
+					<h:outputText value="#{tombamento.descricao}" />
+				</p:column>
+				<p:column headerText="Alocação">
+					<h:outputText value="#{tombamento.alocacao}" />
+				</p:column>
+				<p:column headerText="Preço da unidade">
+					<h:outputText value="#{tombamento.precounidade}" />
+				</p:column>
+				<p:column headerText="Data compra">
+					<h:outputText value="#{tombamento.data}" />
+				</p:column>
+				<p:column headerText="Opções">
+					<p:button icon="ui-icon-pencil"
+						outcome="/pages/tombamentoCadastro.xhtml">
+						<f:param name="tomcod" value="#{tombamento.codigo}" />
+						<f:param name="tomacao" value="Editar" />
+					</p:button>
+					<p:button icon="ui-icon-trash"
+						outcome="/pages/tombamentoCadastro.xhtml">
+						<f:param name="tomcod" value="#{tombamento.codigo}" />
+						<f:param name="tomacao" value="Excluir" />
+					</p:button>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

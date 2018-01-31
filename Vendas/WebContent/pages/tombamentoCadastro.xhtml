@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/templates/template.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="tomacao" value="#{MBTombamentos.acao}" />
+			<f:viewParam name="tomcod" value="#{MBTombamentos.codigo}" />
+			<f:event listener="#{MBTombamentos.carregarCadastro}"
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="frmtomcad">
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputLabel value="Tombamentos" />
+				</f:facet>
+			</p:toolbar>
+			<h:panelGrid columns="2" id="pntomcad">
+				<p:outputLabel value="Código" />
+				<p:inputText maxlength="20" size="10" readonly="true"
+					value="#{MBTombamentos.tombamentos.codigo}" />
+				<p:outputLabel value="Descrição" />
+				<p:inputText maxlength="20" size="10"
+					value="#{MBTombamentos.tombamentos.descricao}"
+					readonly="#{MBTombamentos.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
+				<p:outputLabel value="Alocação" />
+				<p:inputText maxlength="20" size="10"
+					value="#{MBTombamentos.tombamentos.alocacao}"
+					readonly="#{MBTombamentos.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
+				<p:outputLabel value="Data de compra" />
+				<p:inputText maxlength="21" size="10"
+					value="#{MBTombamentos.tombamentos.data}" type="date"
+					readonly="#{MBTombamentos.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
+				<p:outputLabel value="Preço da unidade" />
+				<p:inputText maxlength="20" size="10"
+					value="#{MBTombamentos.tombamentos.precounidade}"
+					readonly="#{MBTombamentos.acao == 'Excluir'}">
+					<f:validateBean />
+				</p:inputText>
+			</h:panelGrid>
+			<h:panelGrid columns="5">
+				<p:commandButton value="Novo" actionListener="#{MBTombamentos.novo}"
+					update=":frmtomcad:pntomcad" />
+				<p:commandButton value="Salvar"
+					actionListener="#{MBTombamentos.salvar}"
+					update=":msgGlobal :frmtomcad:pntomcad"
+					rendered="#{MBTombamentos.acao == 'Novo'}" />
+				<p:commandButton value="Excluir"
+					actionListener="#{MBTombamentos.excluir}" update=":msgGlobal"
+					rendered="#{MBTombamentos.acao == 'Excluir'}" />
+				<p:commandButton value="Editar"
+					actionListener="#{MBTombamentos.editar}" update=":msgGlobal"
+					rendered="#{MBTombamentos.acao == 'Editar'}" />
+				<p:button value="Voltar" outcome="/pages/tombamentoPesquisa.xhtml" />
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
